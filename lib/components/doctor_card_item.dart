@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mypetcare/models/doctor.dart';
+import 'package:mypetcare/main.dart';
 
 class DoctorCard extends StatelessWidget {
   const DoctorCard({
@@ -50,8 +51,11 @@ class DoctorCard extends StatelessWidget {
                       icon: Icon(Icons.contact_page),
                       label: Text('contactar'),
                       onPressed: () {
-                        /* ... */
-                      },
+                        Navigator.pushReplacementNamed(
+                            context, Routes.calendar);
+                      }
+                      /* ... */
+                      ,
                     ),
                     SizedBox(
                       width: 10,
@@ -91,12 +95,12 @@ class DoctorCard extends StatelessWidget {
                       width: 10,
                     ),
                     ElevatedButton.icon(
-                      icon: Icon(Icons.contact_page),
-                      label: Text(''),
-                      onPressed: () {
-                        /* ... */
-                      },
-                    ),
+                        icon: Icon(Icons.contact_page),
+                        label: Text(''),
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, Routes.calendar);
+                        }),
                     SizedBox(
                       width: 10,
                     ),
