@@ -11,8 +11,19 @@ part 'cita.g.dart';
 
 @JsonSerializable()
 class Cita {
-  Cita(this.id, this.cod, this.title, this.description, this.begin, this.end,
-      this.pet_id, this.creator_ID, this.event_type, this.editable);
+  Cita(
+    this.id,
+    this.cod,
+    this.title,
+    this.description,
+    this.begin,
+    this.end,
+    this.pet_id,
+    this.creator_ID,
+    this.event_type,
+    this.editable,
+    this.day_id,
+  );
   @JsonKey(name: '_id')
   final int id;
   final DateTime begin;
@@ -24,6 +35,7 @@ class Cita {
   int creator_ID;
   String event_type;
   bool editable;
+  int day_id;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
@@ -36,6 +48,6 @@ class Cita {
   Map<String, dynamic> toJson() => _$CitaToJson(this);
   @override
   String toString() {
-    return 'Pet{_id: $id, cod: $cod, title: $title, description: $description, begin:$begin, end:$end,pet_id:$pet_id,creator_ID:$creator_ID,event_type:$event_type,editable:$editable}';
+    return 'Cita{_id: $id, cod: $cod, title: $title, description: $description, begin:$begin, end:$end,pet_id:$pet_id,creator_ID:$creator_ID,event_type:$event_type,editable:$editable,day_id:$day_id}';
   }
 }

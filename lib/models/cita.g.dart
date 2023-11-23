@@ -17,6 +17,7 @@ Cita _$CitaFromJson(Map<String, dynamic> json) => Cita(
       json['creator_ID'] as int,
       json['event_type'] as String,
       json['editable'] as bool,
+      json['day_id'] as int,
     );
 
 Map<String, dynamic> _$CitaToJson(Cita instance) => <String, dynamic>{
@@ -30,4 +31,5 @@ Map<String, dynamic> _$CitaToJson(Cita instance) => <String, dynamic>{
       'creator_ID': instance.creator_ID,
       'event_type': instance.event_type,
       'editable': instance.editable,
+      'day_id': instance.day_id,
     };

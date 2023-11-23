@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mypetcare/connections/request_options.dart';
 import 'package:mypetcare/connections/request_to_api.dart';
 import 'package:mypetcare/connections/response_api.dart';
@@ -17,11 +16,140 @@ class CalendarPage extends StatefulWidget {
   const CalendarPage({Key? key}) : super(key: key);
 
   @override
-  CalendarPageState createState() => CalendarPageState();
+  State<CalendarPage> createState() => CalendarPageState();
 }
 
 class CalendarPageState extends State<CalendarPage> {
-  List<Cita> citas = [];
+  // List<Cita> citas = [];
+  List<Cita> citas = [
+    Cita(
+      1, // id
+      12, // begin
+      "101", // cod
+      'Cita 1', // title
+      DateTime.now().add(Duration(hours: 1)),
+      DateTime.now().add(Duration(hours: 1)),
+      1, // description
+      // end
+      1, // pet_id
+      "1", // creator_ID
+      true, // event_type
+      1, // editable // day_id
+    ),
+    Cita(
+      1, // id
+      12, // begin
+      "1021", // cod
+      'Cita 21', // title
+      DateTime.now().add(Duration(hours: 21)),
+      DateTime.now().add(Duration(hours: 12)),
+      21, // description
+      // end
+      21, // pet_id
+      "21", // creator_ID
+      true, // event_type
+      2, // editable // day_id
+    ),
+    Cita(
+      1, // id
+      12, // begin
+      "1021", // cod
+      'Cita 21', // title
+      DateTime.now().add(Duration(hours: 21)),
+      DateTime.now().add(Duration(hours: 12)),
+      21, // description
+      // end
+      21, // pet_id
+      "21", // creator_ID
+      true, // event_type
+      2, // editable // day_id
+    ),
+    Cita(
+      1, // id
+      12, // begin
+      "1021", // cod
+      'Cita 21', // title
+      DateTime.now().add(Duration(hours: 21)),
+      DateTime.now().add(Duration(hours: 12)),
+      21, // description
+      // end
+      21, // pet_id
+      "21", // creator_ID
+      true, // event_type
+      2, // editable // day_id
+    ),
+    Cita(
+      1, // id
+      12, // begin
+      "1021", // cod
+      'Cita 21', // title
+      DateTime.now().add(Duration(hours: 21)),
+      DateTime.now().add(Duration(hours: 12)),
+      21, // description
+      // end
+      21, // pet_id
+      "21", // creator_ID
+      true, // event_type
+      2, // editable // day_id
+    ),
+    Cita(
+      1, // id
+      12, // begin
+      "1021", // cod
+      'Cita 21', // title
+      DateTime.now().add(Duration(hours: 21)),
+      DateTime.now().add(Duration(hours: 12)),
+      21, // description
+      // end
+      21, // pet_id
+      "21", // creator_ID
+      true, // event_type
+      2, // editable // day_id
+    ),
+    Cita(
+      1, // id
+      12, // begin
+      "1021", // cod
+      'Cita 21', // title
+      DateTime.now().add(Duration(hours: 21)),
+      DateTime.now().add(Duration(hours: 12)),
+      21, // description
+      // end
+      21, // pet_id
+      "21", // creator_ID
+      true, // event_type
+      2, // editable // day_id
+    ),
+    Cita(
+      1, // id
+      12, // begin
+      "1021", // cod
+      'Cita 21', // title
+      DateTime.now().add(Duration(hours: 21)),
+      DateTime.now().add(Duration(hours: 12)),
+      21, // description
+      // end
+      21, // pet_id
+      "21", // creator_ID
+      true, // event_type
+      2, // editable // day_id
+    ),
+    Cita(
+      1, // id
+      12, // begin
+      "1021", // cod
+      'Cita 21', // title
+      DateTime.now().add(Duration(hours: 21)),
+      DateTime.now().add(Duration(hours: 12)),
+      21, // description
+      // end
+      21, // pet_id
+      "21", // creator_ID
+      true, // event_type
+      2, // editable // day_id
+    ),
+    // add more Cita objects as necessary
+  ];
   late Future<ApiResponse> futureResponse;
 
   @override
@@ -86,10 +214,17 @@ class CalendarPageState extends State<CalendarPage> {
                     final ApiResponse apiResponse = snapshot.data!;
                     if (apiResponse.statusCode == 200) {
                       final List<dynamic> body = jsonDecode(apiResponse.body);
-                      citas = body
-                          .map((dynamic item) => Cita.fromJson(item))
-                          .toList();
-                      return Expanded(
+                      // citas = body.map((dynamic item) {
+                      //   final Map<String, dynamic> citaMap = item;
+                      //   if (citaMap['creator_ID'] != null) {
+                      //     citaMap['creator_ID'] =
+                      //         int.tryParse(citaMap['creator_ID'].toString()) ??
+                      //             0;
+                      //   }
+                      //   return Cita.fromJson(citaMap);
+                      // }).toList();
+                      print('Cita data: $citas');
+                      return Flexible(
                         child: ListView.builder(
                           padding: const EdgeInsets.all(8),
                           itemCount: citas.length,
@@ -99,17 +234,52 @@ class CalendarPageState extends State<CalendarPage> {
                         ),
                       );
                     } else {
-                      return Text('Error al obtener los datos');
+                      // handle non-200 status code
+                      return Text('Error: ${apiResponse.statusCode}');
                     }
                   } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
+                    // handle error
+                    return Text('Error: ${snapshot.error}');
                   } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    // handle loading state
+                    return CircularProgressIndicator();
                   }
                 },
-              ),
+              )
+              // FutureBuilder<ApiResponse>(
+              //   future: futureResponse,
+              //   builder: (context, snapshot) {
+              //     if (snapshot.hasData) {
+              //       final ApiResponse apiResponse = snapshot.data!;
+              //       if (apiResponse.statusCode == 200) {
+              //         final List<dynamic> body = jsonDecode(apiResponse.body);
+              //         citas = body
+              //             .map((dynamic item) => Cita.fromJson(item))
+              //             .toList();
+              //         print(body);
+              //         return Expanded(
+              //           child: ListView.builder(
+              //             padding: const EdgeInsets.all(8),
+              //             itemCount: citas.length,
+              //             itemBuilder: (context, index) {
+              //               print('Cita data: ${citas[index]}');
+              //               // return CitaCard(cita: citas[index]);
+              //               return Text('test');
+              //             },
+              //           ),
+              //         );
+              //       } else {
+              //         return Text('Error al obtener los datos');
+              //       }
+              //     } else if (snapshot.hasError) {
+              //       return Text('${snapshot.error}');
+              //     } else {
+              //       return const Center(
+              //         child: CircularProgressIndicator(),
+              //       );
+              //     }
+              //   },
+              // ),
             ],
           );
         } else {
@@ -146,24 +316,26 @@ class CalendarPageState extends State<CalendarPage> {
                   ),
                 ],
               ),
-              TextButton(
-                  onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CreateEvent())),
-                  child: Text("Ir al Calendario")),
-              SizedBox(
-                height: 10,
-              ),
+
               FutureBuilder<ApiResponse>(
                 future: futureResponse,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final ApiResponse apiResponse = snapshot.data!;
                     if (apiResponse.statusCode == 200) {
-                      final List<dynamic> body = jsonDecode(apiResponse.body);
-                      citas = body
-                          .map((dynamic item) => Cita.fromJson(item))
-                          .toList();
-                      return Expanded(
+                      final Map<String, dynamic> body =
+                          jsonDecode(apiResponse.body);
+                      final List<dynamic> events = body['events'];
+                      citas = events.map((dynamic item) {
+                        final Map<String, dynamic> citaMap = item;
+                        if (citaMap['creator_ID'] != null) {
+                          citaMap['creator_ID'] =
+                              int.tryParse(citaMap['creator_ID'].toString()) ??
+                                  0;
+                        }
+                        return Cita.fromJson(citaMap);
+                      }).toList();
+                      return Flexible(
                         child: ListView.builder(
                           padding: const EdgeInsets.all(8),
                           itemCount: citas.length,
@@ -173,17 +345,52 @@ class CalendarPageState extends State<CalendarPage> {
                         ),
                       );
                     } else {
-                      return Text('Error al obtener los datos');
+                      // handle non-200 status code
+                      return Text('Error: ${apiResponse.statusCode}');
                     }
                   } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
+                    // handle error
+                    return Text('Error: ${snapshot.error}');
                   } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    // handle loading state
+                    return CircularProgressIndicator();
                   }
                 },
-              ),
+              )
+
+              // FutureBuilder<ApiResponse>(
+              //   future: futureResponse,
+              //   builder: (context, snapshot) {
+              //     if (snapshot.hasData) {
+              //       final ApiResponse apiResponse = snapshot.data!;
+              //       if (apiResponse.statusCode == 200) {
+              //         final List<dynamic> body = jsonDecode(apiResponse.body);
+              //         citas = body
+              //             .map((dynamic item) => Cita.fromJson(item))
+              //             .toList();
+              //         return Expanded(
+              //           child: ListView.builder(
+              //             padding: const EdgeInsets.all(8),
+              //             itemCount: citas.length,
+              //             itemBuilder: (context, index) {
+              //               print('Cita data: ${citas[index]}');
+              //               return Text('test');
+              //               // return CitaCard(cita: citas[index]);
+              //             },
+              //           ),
+              //         );
+              //       } else {
+              //         return Text('Error al obtener los datos');
+              //       }
+              //     } else if (snapshot.hasError) {
+              //       return Text('${snapshot.error}');
+              //     } else {
+              //       return const Center(
+              //         child: CircularProgressIndicator(),
+              //       );
+              //     }
+              //   },
+              // ),
             ],
           );
         }

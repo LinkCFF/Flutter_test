@@ -25,7 +25,7 @@ class CitaCard extends StatelessWidget {
                 ListTile(
                   leading: FaIcon(icon),
                   title: Text(cita.title),
-                  subtitle: Text(cita.creator_ID.toString()),
+                  subtitle: Text(cita.description),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -46,7 +46,7 @@ class CitaCard extends StatelessWidget {
                 ListTile(
                   leading: FaIcon(icon),
                   title: Text(cita.title),
-                  subtitle: Text(cita.creator_ID.toString()),
+                  subtitle: Text(cita.description),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
