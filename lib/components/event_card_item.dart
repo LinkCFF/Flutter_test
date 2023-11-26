@@ -45,7 +45,7 @@ class CitaCard extends StatelessWidget {
               child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                 ListTile(
                   leading: FaIcon(icon),
-                  title: Text(cita.title),
+                  title: Text(cita.event_type),
                   subtitle: Text(cita.description),
                 ),
                 Row(
