@@ -214,17 +214,10 @@ class CalendarPageState extends State<CalendarPage> {
                     final ApiResponse apiResponse = snapshot.data!;
                     if (apiResponse.statusCode == 200) {
                       final List<dynamic> body = jsonDecode(apiResponse.body);
-                      // citas = body.map((dynamic item) {
-                      //   final Map<String, dynamic> citaMap = item;
-                      //   if (citaMap['creator_ID'] != null) {
-                      //     citaMap['creator_ID'] =
-                      //         int.tryParse(citaMap['creator_ID'].toString()) ??
-                      //             0;
-                      //   }
-                      //   return Cita.fromJson(citaMap);
-                      // }).toList();
-                      print('Cita data: $citas');
-                      return Flexible(
+                      citas = body
+                          .map((dynamic item) => Cita.fromJson(item))
+                          .toList();
+                      return Expanded(
                         child: ListView.builder(
                           padding: const EdgeInsets.all(8),
                           itemCount: citas.length,
@@ -234,18 +227,17 @@ class CalendarPageState extends State<CalendarPage> {
                         ),
                       );
                     } else {
-                      // handle non-200 status code
-                      return Text('Error: ${apiResponse.statusCode}');
+                      return Text('Error al obtener los datos');
                     }
                   } else if (snapshot.hasError) {
-                    // handle error
-                    return Text('Error: ${snapshot.error}');
+                    return Text('${snapshot.error}');
                   } else {
-                    // handle loading state
-                    return CircularProgressIndicator();
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
                 },
-              )
+              ),
               // FutureBuilder<ApiResponse>(
               //   future: futureResponse,
               //   builder: (context, snapshot) {
@@ -253,33 +245,32 @@ class CalendarPageState extends State<CalendarPage> {
               //       final ApiResponse apiResponse = snapshot.data!;
               //       if (apiResponse.statusCode == 200) {
               //         final List<dynamic> body = jsonDecode(apiResponse.body);
-              //         citas = body
-              //             .map((dynamic item) => Cita.fromJson(item))
-              //             .toList();
-              //         print(body);
-              //         return Expanded(
+              //         final List<Cita> citas =
+              //             body.map((item) => Cita.fromJson(item)).toList();
+              //         print('Cita data: $citas');
+              //         print('data: $body');
+              //         return Flexible(
               //           child: ListView.builder(
               //             padding: const EdgeInsets.all(8),
               //             itemCount: citas.length,
               //             itemBuilder: (context, index) {
-              //               print('Cita data: ${citas[index]}');
-              //               // return CitaCard(cita: citas[index]);
-              //               return Text('test');
+              //               return CitaCard(cita: citas[index]);
               //             },
               //           ),
               //         );
               //       } else {
-              //         return Text('Error al obtener los datos');
+              //         // handle non-200 status code
+              //         return Text('Error: ${apiResponse.statusCode}');
               //       }
               //     } else if (snapshot.hasError) {
-              //       return Text('${snapshot.error}');
+              //       // handle error
+              //       return Text('Error: ${snapshot.error}');
               //     } else {
-              //       return const Center(
-              //         child: CircularProgressIndicator(),
-              //       );
+              //       // handle loading state
+              //       return CircularProgressIndicator();
               //     }
               //   },
-              // ),
+              // )
             ],
           );
         } else {
@@ -316,7 +307,6 @@ class CalendarPageState extends State<CalendarPage> {
                   ),
                 ],
               ),
-
               FutureBuilder<ApiResponse>(
                 future: futureResponse,
                 builder: (context, snapshot) {
@@ -357,40 +347,6 @@ class CalendarPageState extends State<CalendarPage> {
                   }
                 },
               )
-
-              // FutureBuilder<ApiResponse>(
-              //   future: futureResponse,
-              //   builder: (context, snapshot) {
-              //     if (snapshot.hasData) {
-              //       final ApiResponse apiResponse = snapshot.data!;
-              //       if (apiResponse.statusCode == 200) {
-              //         final List<dynamic> body = jsonDecode(apiResponse.body);
-              //         citas = body
-              //             .map((dynamic item) => Cita.fromJson(item))
-              //             .toList();
-              //         return Expanded(
-              //           child: ListView.builder(
-              //             padding: const EdgeInsets.all(8),
-              //             itemCount: citas.length,
-              //             itemBuilder: (context, index) {
-              //               print('Cita data: ${citas[index]}');
-              //               return Text('test');
-              //               // return CitaCard(cita: citas[index]);
-              //             },
-              //           ),
-              //         );
-              //       } else {
-              //         return Text('Error al obtener los datos');
-              //       }
-              //     } else if (snapshot.hasError) {
-              //       return Text('${snapshot.error}');
-              //     } else {
-              //       return const Center(
-              //         child: CircularProgressIndicator(),
-              //       );
-              //     }
-              //   },
-              // ),
             ],
           );
         }
