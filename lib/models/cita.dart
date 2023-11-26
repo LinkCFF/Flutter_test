@@ -11,6 +11,8 @@ part 'cita.g.dart';
 
 @JsonSerializable()
 class Cita {
+
+=======
   Cita(
     this.id,
     this.cod,

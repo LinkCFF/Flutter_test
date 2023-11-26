@@ -2,15 +2,21 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mypetcare/components/cita_card_item.dart';
+
 import 'package:mypetcare/connections/request_options.dart';
 import 'package:mypetcare/connections/request_to_api.dart';
 import 'package:mypetcare/connections/response_api.dart';
 import 'package:mypetcare/main.dart';
+import 'package:mypetcare/models/cita.dart';
 import 'package:mypetcare/pages/create_event.dart';
 import 'package:mypetcare/pages/show_event.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mypetcare/components/event_card_item.dart';
 import 'package:mypetcare/models/cita.dart';
+
+//Cambiar StatelessWidget por el StatefulWidget
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({Key? key}) : super(key: key);
@@ -172,6 +178,17 @@ class CalendarPageState extends State<CalendarPage> {
         ),
         backgroundColor: Color.fromARGB(128, 0, 213, 255),
       ),
+      // body: Center(
+      //   child: Padding(
+      //     padding: const EdgeInsets.all(8.0),
+      //     child: Column(
+      //       children: [
+      //         ListaCitas(),
+      //         TextButton(
+      //             onPressed: () => Navigator.push(context,
+      //                 MaterialPageRoute(builder: (context) => CreateEvent())),
+      //             child: Text("Ir al Calendario"))
+
       body: LayoutBuilder(builder: (context, constraints) {
         if (constraints.maxWidth > 500) {
           return Column(
@@ -215,6 +232,8 @@ class CalendarPageState extends State<CalendarPage> {
                     if (apiResponse.statusCode == 200) {
                       final List<dynamic> body = jsonDecode(apiResponse.body);
                       citas = body
+                      //TO DO: Cita.fromJson(item)
+
                           .map((dynamic item) => Cita.fromJson(item))
                           .toList();
                       return Expanded(
@@ -238,6 +257,7 @@ class CalendarPageState extends State<CalendarPage> {
                   }
                 },
               ),
+
               // FutureBuilder<ApiResponse>(
               //   future: futureResponse,
               //   builder: (context, snapshot) {
@@ -335,18 +355,18 @@ class CalendarPageState extends State<CalendarPage> {
                         ),
                       );
                     } else {
-                      // handle non-200 status code
-                      return Text('Error: ${apiResponse.statusCode}');
+                      return Text('Error al obtener los datos');
                     }
                   } else if (snapshot.hasError) {
-                    // handle error
-                    return Text('Error: ${snapshot.error}');
+                    return Text('${snapshot.error}');
                   } else {
-                    // handle loading state
-                    return CircularProgressIndicator();
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
                 },
-              )
+              ),
+
             ],
           );
         }

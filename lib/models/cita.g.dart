@@ -13,6 +13,7 @@ Cita _$CitaFromJson(Map<String, dynamic> json) => Cita(
       json['description'] as String,
       DateTime.parse(json['begin'] as String),
       DateTime.parse(json['end'] as String),
+
       json['pet_id'] as int,
       json['creator_ID'] as int,
       json['event_type'] as String,
