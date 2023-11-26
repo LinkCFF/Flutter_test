@@ -1,22 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:mypetcare/models/cita.dart';
+// import 'dart:convert';
 
-class ListaCitas extends StatefulWidget {
-  const ListaCitas({Key? key}) : super(key: key);
+// import 'package:flutter/material.dart';
+// import 'package:mypetcare/components/event_card_item.dart';
+// import 'package:mypetcare/connections/request_options.dart';
+// import 'package:mypetcare/connections/request_to_api.dart';
+// import 'package:mypetcare/connections/response_api.dart';
+// import 'package:mypetcare/main.dart';
+// import 'package:mypetcare/models/cita.dart';
 
-  @override
-  ListaCitasState createState() => ListaCitasState();
-}
+// class ListaCitas extends StatefulWidget {
+//   const ListaCitas({Key? key}) : super(key: key);
 
-class ListaCitasState extends State<ListaCitas> {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          // ignore: avoid_unnecessary_containers
-          return Container(child: Text("No hay eventos este día"));
-        }
+//   @override
+//   ListaCitasState createState() => ListaCitasState();
+// }
 
         List<Cita> citas = [
           Cita(1, 123, "Title 1", "Description 1", DateTime.now(), DateTime.now(), 1, 1,true, "Event type 1"),
@@ -38,3 +35,4 @@ class ListaCitasState extends State<ListaCitas> {
     );
   }
 }
+
